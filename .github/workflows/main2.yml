@@ -30,7 +30,7 @@ jobs:
       - name: Run hadolint analysis
         run: hadolint Dockerfile
 
-  super_calculator_3:
+  super_calculator_nelly:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
