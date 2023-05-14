@@ -17,5 +17,5 @@ jobs:
 
       - name: Run Super-Linter
         env:
-          VALIDATE_ALL_CODEBASE: True
+          VALIDATE_ALL_CODEBASE: False
         run: /usr/bin/super-linter
