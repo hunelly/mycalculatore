@@ -1,4 +1,4 @@
-name: "Semgrep"
+name: "hadolint"
 
 on:
   pull_request:
