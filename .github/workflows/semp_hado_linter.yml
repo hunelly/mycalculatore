@@ -1,0 +1,54 @@
+name: semp_hado_linter
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Semgrep analysis
+        run: |
+          docker run --rm -i semgrep/semgrep < ./path/to/code
+
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run Hadolint analysis
+        run: |
+          docker run --rm -i hadolint/hadolint < ./path/to/Dockerfile
+
+  super_calculator_3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and Run SuperCalculator 3
+        run: |
+          docker build -t super_calculator_3 ./path/to/super_calculator
+          docker run --rm super_calculator_3
+
+  super_linter:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Super-Linter
+        uses: github/super-linter@v4
+
+      - name: Run Super-Linter
+        env:
+          VALIDATE_ALL_CODEBASE: False
+        run: /usr/bin/super-linter
+
