@@ -14,7 +14,7 @@ FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
 
-COPY --from=build /calculator /calculator
+COPY --from=build /calculator /calculator:v2
 
 USER nonroot:nonroot
 
