@@ -6,16 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  super_calculator_3:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Build and Run SuperCalculator 3
-        run: |
-          docker build -t super_calculator_3 ./path/to/super_calculator
-          docker run --rm super_calculator_3
 
   super_linter:
     if: github.event_name == 'pull_request'
