@@ -1,4 +1,4 @@
-name: "Link_Workflow"
+name: "semgrep"
 
 on:
   pull_request:
