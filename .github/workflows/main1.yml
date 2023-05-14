@@ -1,4 +1,4 @@
-name: "Release_Workflow"
+name: "GOrelase_Workflow"
 
 on:
   push:
