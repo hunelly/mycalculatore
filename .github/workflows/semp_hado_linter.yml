@@ -15,8 +15,7 @@ jobs:
       - name: Setup Super-Linter
         if: github.event_name == 'pull_request'
         uses: github/super-linter@v4
-        
-      - name: Run Super-Linter
         with:
           VALIDATE_ALL_CODEBASE: True
+
 
