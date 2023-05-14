@@ -17,5 +17,11 @@ jobs:
         uses: github/super-linter@v4
         with:
           VALIDATE_ALL_CODEBASE: True
+          
+      - name: Run Semgrep on Go files
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/go"
+          path: "docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
 
 
