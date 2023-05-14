@@ -1,4 +1,5 @@
-name: "Link_Worflows"
+name: "Link_Workflow"
+
 on:
   pull_request:
   push:
@@ -10,17 +11,51 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup semgrep
+
+      - name: Install semgrep
         uses: returntocorp/semgrep-action@v1
-      - name: Run semgrep
-        run: semgrep --config=p/security-audit super_calculator/
-  
+
+      - name: Run semgrep analysis
+        run: semgrep --config=p/default --no-filesystem .
+
   hadolint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Setup hadolint
-        uses: hadolint/hadolint-action@v1
-      - name: Run hadolint
+
+      - name: Install hadolint
+        run: sudo apt-get install -y hadolint
+
+      - name: Run hadolint analysis
         run: hadolint Dockerfile
+
+  super_calculator_3:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16'
+
+      - name: Build SuperCalculator_nelly
+        run: go build -o super_calculator_nelly super_calculator/cmd/main.go
+
+  super_linter:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Super-Linter
+        uses: github/super-linter@v4
+
+      - name: Run Super-Linter
+        env:
+          VALIDATE_ALL_CODEBASE: false
+        run: /usr/bin/super-linter
+
