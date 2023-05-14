@@ -22,12 +22,12 @@ jobs:
 
       - name: Install goreleaser
         run: |
-          curl -sL https://git.io/goreleaser | bash -s -- -f $GOPATH/bin
+          curl -sL https://git.io/goreleaser | sudo bash
         shell: bash
 
       - name: Build and package with goreleaser
         run: |
-          goreleaser release --snapshot --skip-publish
+          $GOPATH/bin/goreleaser release --snapshot --skip-publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -57,6 +57,7 @@ jobs:
         with:
           name: my-release-artifact
           path: dist/
+
 
 
 
