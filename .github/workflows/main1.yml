@@ -1,4 +1,4 @@
-name: Release
+name: go_dock_release
 
 on:
   push:
@@ -17,10 +17,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.17
-
-      - name: Install dependencies
-        run: |
-          go mod download
 
       - name: Build and package with goreleaser
         run: |
