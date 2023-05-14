@@ -6,15 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  semgrep:
+    semgrep:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Run Semgrep analysis
-        run: |
-          docker run --rm -i semgrep/semgrep < ./path/to/code
+      - name: Run Semgrep on Go files
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/go"
+          path: "docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
 
   hadolint:
     runs-on: ubuntu-latest
