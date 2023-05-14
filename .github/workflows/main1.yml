@@ -3,7 +3,7 @@ name: go_dock_release
 on:
   push:
     tags:
-      - '*'
+      -'*'
   workflow_dispatch:
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v4
         with:
           version: latest
-          args: release --clean
+          args: release --snapshot --clean
         env:
           GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           
