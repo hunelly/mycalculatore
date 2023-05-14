@@ -3,7 +3,7 @@ name: go_dock_release
 on:
   push:
     tags:
-      - '1.1.1'
+      - '*'
   workflow_dispatch:
 
 jobs:
