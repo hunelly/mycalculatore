@@ -1,0 +1,35 @@
+name: super_linter
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+superr_calculator_nelly:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.16'
+
+      - name: Build SuperCalculator_nelly
+        run: go build -o super_calculator_nelly super_calculator/cmd/main.go
+
+ super_linter:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Super-Linter
+        uses: github/super-linter@v4
+
+      - name: Run Super-Linter
+        env:
+          VALIDATE_ALL_CODEBASE: false
+        run: /usr/bin/super-linter
