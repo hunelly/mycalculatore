@@ -1,0 +1,62 @@
+name: "Release_Workflow"
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - '1.1.1' # Trigger on all semver tags
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # enable manual workflow runs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          node-version: '16'
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          go mod download
+
+      - name: Install goreleaser
+        run: |
+          curl -sfL https://install.goreleaser.com/github.com/goreleaser/goreleaser.sh | sh -s -- -b /usr/local/bin
+
+      - name: Build and package with goreleaser
+        run: |
+          goreleaser release --snapshot --rm-dist
+
+      - name: Create Docker image and push to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: |
+            kamganelly123456/mycalculatore:${{ github.ref }}
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOCKERHUB_PASSWORD }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-release-artifact
+          path: dist/
