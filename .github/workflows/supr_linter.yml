@@ -20,4 +20,3 @@ jobs:
       - name: Run Super-Linter
         env:
           VALIDATE_ALL_CODEBASE: false
-
