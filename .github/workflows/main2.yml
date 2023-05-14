@@ -1,0 +1,26 @@
+name: "Link_Worflows"
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup semgrep
+        uses: returntocorp/semgrep-action@v1
+      - name: Run semgrep
+        run: semgrep --config=p/security-audit super_calculator/
+  
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup hadolint
+        uses: hadolint/hadolint-action@v1
+      - name: Run hadolint
+        run: hadolint Dockerfile
