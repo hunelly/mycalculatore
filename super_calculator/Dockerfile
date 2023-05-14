@@ -10,11 +10,11 @@ COPY . .
 
 RUN go build -o /calculator
 
-FROM gcr.io/distroless/base-debian10
+FROM gcr.io/distroless/base-debian10:v2
 
 WORKDIR /
 
-COPY --from=build /calculator /calculator:v2
+COPY --from=build /calculator /calculator
 
 USER nonroot:nonroot
 
