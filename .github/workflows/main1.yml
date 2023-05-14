@@ -28,6 +28,6 @@ jobs:
           sudo mv goreleaser /usr/local/bin/
       - name: Run GoReleaser
         run: |
-          goreleaser release --snapshot --rm-dist 
+          goreleaser release --snapshot 
         env:
           GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
