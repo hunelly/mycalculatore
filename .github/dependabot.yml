@@ -4,7 +4,12 @@
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 # Basic dependabot.yml file with
 # minimum configuration for two package managers
-
+name: Mydependabot
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+  
 version: 2
 updates:
   # Enable version updates for npm
