@@ -1,10 +1,13 @@
-name: go_dock_release
+name: GOrelase_Workflow
 
 on:
   push:
+    branches: [main]
     tags:
-      - 'v*'
-  workflow_dispatch:
+      - 'v*' # Trigger on all semver tags
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # enable manual workflow runs
 
 jobs:
   build:
@@ -13,50 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
-
+          node-version: '16'
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
-          go-version: 1.17
-
-      - name: Install goreleaser
+          go-version: '1.16'
+      - name: Install GoReleaser
         run: |
-          curl -sL https://git.io/goreleaser | sudo bash
-        shell: bash
-
-      - name: Build and package with goreleaser
+          curl -sL https://github.com/goreleaser/goreleaser/releases/download/v0.182.1/goreleaser_Linux_x86_64.tar.gz | tar xz
+          sudo mv goreleaser /usr/local/bin/
+      - name: Run GoReleaser
         run: |
-          $GOPATH/bin/goreleaser release --snapshot --skip-publish
+          goreleaser release --snapshot --rm-dist
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: |
-            kamganelly123456/mycalculator:${{ github.ref }}
-
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
-
-      - name: Upload release artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-release-artifact
-          path: dist/
+          GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
 
