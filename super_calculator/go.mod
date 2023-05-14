@@ -1,4 +1,4 @@
-module super_calculator
+module calculator
 
 go 1.19
 
