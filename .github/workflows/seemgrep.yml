@@ -1,4 +1,4 @@
-name: "semgrep"
+name: semgrep
 
 on:
   pull_request:
@@ -6,14 +6,17 @@ on:
   workflow_dispatch:
 
 jobs:
-
   semgrep:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run semgrep analysis
+      - name: Pull Semgrep Docker image
         run: |
-         docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile
-         
+          docker pull semgrep/semgrep:latest
+
+      - name: Run Semgrep analysis
+        run: |
+          docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile
+
