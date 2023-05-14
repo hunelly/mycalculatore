@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-  - main: ./path/to/your/main/pkg/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,7 +26,7 @@ jobs:
           version: latest
           args: release --snapshot --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           
       - name: Create Docker image and push to Docker Hub
         uses: docker/build-push-action@v2
@@ -53,3 +52,5 @@ jobs:
         with:
           name: my-release-artifact
           path: dist/
+
+
