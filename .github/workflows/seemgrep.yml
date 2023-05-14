@@ -1,0 +1,19 @@
+name: "Link_Workflow"
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run semgrep analysis
+        run: |
+         docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile
+         
