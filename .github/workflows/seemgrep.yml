@@ -12,10 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Pull Semgrep Docker image
-        run: |
-          docker pull semgrep/semgrep:latest
-
       - name: Run Semgrep analysis
         run: |
           docker run --rm -i semgrep/semgrep < ./super_calculator/Dockerfile
