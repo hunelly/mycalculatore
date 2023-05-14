@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+  - main: ./path/to/your/main/pkg/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
