@@ -1,8 +1,8 @@
-name: "semgrep"
+name: semgrep
 
 on:
-  pull_request:
   push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -11,12 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Run Semgrep analysis
-        run: |
-          docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
-
-
+      - name: Run Semgrep on Go files
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: "p/go"
+          path: "docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
 
 
 
