@@ -5,18 +5,17 @@ on:
   push:
   workflow_dispatch:
 
-jobs:
-
-  super_linter:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
+jobs: 
+ analyse-code:
+  runs-on: ubuntu-latest
+  steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+      
       - name: Setup Super-Linter
+        if: github.event_name == 'pull_request'
         uses: github/super-linter@v4
-
+        
       - name: Run Super-Linter
         with:
           VALIDATE_ALL_CODEBASE: True
