@@ -18,3 +18,8 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: false
         run: /usr/bin/super-linter
+        
+      - name: Create a release
+        uses: goreleaser/goreleaser-action@v2
+        with:
+          args: release --snapshot dist
