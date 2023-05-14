@@ -14,7 +14,9 @@ jobs:
 
       - name: Run Semgrep analysis
         run: |
-          docker run --rm -i docker.io/semgrep/semgrep:v1< ./super_calculator/Dockerfile
+          docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
+
+
 
 
 
