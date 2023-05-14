@@ -25,4 +25,4 @@ jobs:
           context: ./super_calculator
           push: true
           tags: |
-            kamganelly123456/mycalculatore:${{ github.ref }}
+            ${{ secrets.DOCKERHUB_USERNAME}}/mycalculatore:${{ github.ref }}
