@@ -1,4 +1,4 @@
-FROM golang:1.19-buster-latest  AS build
+FROM golang:1.19-buster AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN go build -o /calculator
 
-FROM gcr.io/distroless/base-debian10:v2
+FROM gcr.io/distroless/base-debian10
 
 WORKDIR /
 
