@@ -22,7 +22,7 @@ jobs:
         uses: returntocorp/semgrep-action@v1
         with:
           config: "p/go"
-          path: "docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile"
+          path: "docker run --rm -i docker.io/semgrep/semgrep:v0.63.0 < ./super_calculator/Dockerfile1"
           
       - name: Run hadolint analysis
         run: |
